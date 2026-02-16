@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Button from "../../../components/button";
 
 type Membership = {
-    id: string;
+    membershipId: string;
     firstName: string;
     lastName: string;
     type: "ADULT" | "CHILD" | "STUDENT" | "FAMILY";
@@ -89,73 +89,73 @@ const MyMemberships = () => {
         );
     }
     return (
-    <div className="max-w-md mx-auto mt-10 p-6 bg-white rounded shadow">
-        <h2 className="text-2xl font-semibold text-center mb-6">
-            My Memberships
-        </h2>
+        <div className="max-w-md mx-auto mt-10 p-6 bg-white rounded shadow">
+            <h2 className="text-2xl font-semibold text-center mb-6">
+                My Memberships
+            </h2>
 
-        {memberships.length === 0 && (
-            <p className="text-center text-gray-500">
-                You have no memberships yet.
-            </p>
-        )}
+            {memberships.length === 0 && (
+                <p className="text-center text-gray-500">
+                    You have no memberships yet.
+                </p>
+            )}
 
-        {memberships.map((m) => (
-            <div
-                key={m.id}
-                className="border rounded p-4 flex justify-between items-start mb-4"
-            >
-                <div className="space-y-1">
-                    <p>
-                        <b>User:</b> {m.firstName} {m.lastName}
-                    </p>
+            {memberships.map((m) => (
+                <div
+                    key={m.membershipId}
+                    className="border rounded p-4 flex justify-between items-start mb-4"
+                >
+                    <div className="space-y-1">
+                        <p>
+                            <b>User:</b> {m.firstName} {m.lastName}
+                        </p>
 
-                    <p>
-                        <b>Type:</b> {m.type}
-                    </p>
+                        <p>
+                            <b>Type:</b> {m.type}
+                        </p>
 
-                    <p>
-                        <b>Duration:</b> {m.duration}
-                    </p>
+                        <p>
+                            <b>Duration:</b> {m.duration}
+                        </p>
 
-                    <p>
-                        <b>Status:</b>{" "}
-                        <span
-                            className={
-                                m.status === "PENDING"
-                                    ? "text-yellow-600"
-                                    : m.status === "APPROVED"
-                                    ? "text-green-600"
-                                    : m.status === "REJECTED"
-                                    ? "text-red-600"
-                                    : "text-gray-500"
-                            }
-                        >
-                            {m.status}
-                        </span>
-                    </p>
+                        <p>
+                            <b>Status:</b>{" "}
+                            <span
+                                className={
+                                    m.status === "PENDING"
+                                        ? "text-yellow-600"
+                                        : m.status === "APPROVED"
+                                            ? "text-green-600"
+                                            : m.status === "REJECTED"
+                                                ? "text-red-600"
+                                                : "text-gray-500"
+                                }
+                            >
+                                {m.status}
+                            </span>
+                        </p>
 
-                    <p>
-                        <b>Period:</b> {m.startDate} – {m.endDate}
-                    </p>
+                        <p>
+                            <b>Period:</b> {m.startDate} – {m.endDate}
+                        </p>
 
-                    <p>
-                        <b>Active:</b> {m.active ? "Yes" : "No"}
-                    </p>
+                        <p>
+                            <b>Active:</b> {m.active ? "Yes" : "No"}
+                        </p>
 
-                    {m.status !== "CANCELLED" && (
-                        <Button
-                            name="Cancel"
-                            type="button"
-                            danger
-                            loading={cancelLoadingId === m.id}
-                            onClick={() => cancelMembership(m.id)}
-                        />
-                    )}
+                        {m.status == "APPROVED" && (
+                            <Button
+                                name="Cancel"
+                                type="button"
+                                danger
+                                loading={cancelLoadingId === m.membershipId}
+                                onClick={() => cancelMembership(m.membershipId)}
+                            />
+                        )}
+                    </div>
                 </div>
-            </div>
-        ))}
-    </div>
-);
+            ))}
+        </div>
+    );
 }
 export default MyMemberships;

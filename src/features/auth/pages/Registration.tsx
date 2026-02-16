@@ -152,6 +152,7 @@ const Registration = () => {
                 <Button
                     name="Register"
                     type="submit"
+                    variant="primary"
                     disabled={!formik.isValid}
                     loading={loading}
                 />

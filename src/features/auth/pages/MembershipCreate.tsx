@@ -44,9 +44,9 @@ const MembershipCreate = () => {
 
             iban: Yup.string()
                 .matches(/^[A-Za-z]{2}\d{2}[A-Za-z0-9 ]{1,32}$/, {
-            message: "Invalid IBAN",
-            excludeEmptyString: true,
-        }
+                    message: "Invalid IBAN",
+                    excludeEmptyString: true,
+                }
                 )
                 .nullable()
                 .notRequired(),
@@ -238,6 +238,7 @@ const MembershipCreate = () => {
                 <Button
                     name="Create Membership"
                     type="submit"
+                    variant="primary"
                     disabled={!formik.isValid}
                     loading={loading}
 

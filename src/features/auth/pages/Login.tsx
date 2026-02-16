@@ -1,6 +1,6 @@
 import { useFormik } from "formik";
 import * as Yup from "yup";
-//import { register } from "../authSlice";
+import { useAuth } from "../context/UseAuth";
 //import { useAppDispatch } from "../../../app/store";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -12,6 +12,8 @@ const Login = () => {
     const [loading, setLoading] = useState(false);
     //const dispatch = useAppDispatch();
     const navigate = useNavigate();
+    const { login } = useAuth();
+
     const formik = useFormik({
         initialValues: {
             email: "",
@@ -32,8 +34,8 @@ const Login = () => {
                     "http://localhost:8081/api/auth/login",
                     values
                 );
-                const token = response.data.accessToken;
-                localStorage.setItem("accessToken", token);
+                const { accessToken, role } = response.data;
+                login(accessToken, role);
                 navigate("/");
             } catch (error) {
                 console.error("LOGIN ERROR: ", error);
@@ -80,10 +82,20 @@ const Login = () => {
                 <Button
                     name="Login"
                     type="submit"
+                    variant="primary"
                     disabled={!formik.isValid}
                     loading={loading}
                 />
 
+                <div className="text-center mt-4">
+                    <button
+                        type="button"
+                        onClick={() => navigate("/password-reset")}
+                        className="text-sm text-blue-600 hover:underline"
+                    >
+                        Forgot Password?
+                    </button>
+                </div>
             </form>
 
         </div>

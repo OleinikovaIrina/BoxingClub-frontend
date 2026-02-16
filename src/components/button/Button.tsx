@@ -8,6 +8,7 @@ function Button({
     disabled = false,
     loading = false,
     type = "submit",
+    variant="primary",
     danger
 }: ButtonProps) {
 
@@ -16,9 +17,9 @@ function Button({
             onClick={onClick}
             disabled={disabled || loading}
             type={type}
+            variant={variant}
             danger={danger}
         >
-
             {loading ? < Spinner size={18} color="white" /> : name}
         </MainButton >
     );
