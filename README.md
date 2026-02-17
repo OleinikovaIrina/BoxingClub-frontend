@@ -34,7 +34,7 @@ Frontend application for the BoxingClub membership management system.
 
 This application works together with the backend service:
 
-
+https://github.com/OleinikovaIrina/BoxingClub-backend
 
 Make sure the backend is running before starting the frontend.
 
