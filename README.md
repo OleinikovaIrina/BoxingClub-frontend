@@ -2,6 +2,18 @@
 
 Frontend application for the BoxingClub membership management system.
 
+##  Demo
+
+You can explore the application without registration using pre-created demo accounts:
+
+- **User:** user@test.com / Password@1  
+- **Admin:** admin@test.com / Password@2  
+
+Demo flow:
+1. Login as User → create a membership request  
+2. Login as Admin → review and approve/reject requests  
+
+
 ## Tech Stack
 
 - React
@@ -30,6 +42,11 @@ Frontend application for the BoxingClub membership management system.
 - Token validation
 - Set new password
 
+## Email Handling
+
+Password reset emails are handled via **Mailtrap (testing environment)**.  
+Emails are not sent to real inboxes.
+
 ## Backend
 
 This application works together with the backend service:
@@ -50,8 +67,8 @@ Application runs by default on: http://localhost:5173
 
 ## Notes
 
-- Make sure the backend is running on: http://localhost:8081  
-- Backend repository: https://github.com/OleinikovaIrina/BoxingClub-backend  
+- Demo accounts are pre-created for testing 
 - API base URL is configured for local development
+- For production deployment, configure VITE_API_URL accordingly.
 
 

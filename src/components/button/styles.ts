@@ -6,10 +6,9 @@ interface MainButtonStyledProps {
 }
 
 export const MainButton = styled.button<MainButtonStyledProps>`
-  width: 100%;
-  padding: 20px;
+  padding: 12px 20px;
   border-radius: 6px;
-  font-size: 26px;
+  font-size: 16px;
   cursor: pointer;
 
   background: ${({ variant, danger }) => {

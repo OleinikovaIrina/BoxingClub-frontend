@@ -1,15 +1,12 @@
 import { useFormik } from "formik";
 import * as Yup from "yup";
-//import { register } from "../authSlice";
-//import { useAppDispatch } from "../../../app/store";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import { api } from "../../../shared/api";
 import { useState } from "react";
 import Button from "../../../components/button";
 
 const MembershipCreate = () => {
     const [loading, setLoading] = useState(false);
-    //const dispatch = useAppDispatch();
     const navigate = useNavigate();
     const formik = useFormik({
         initialValues: {
@@ -72,8 +69,8 @@ const MembershipCreate = () => {
                     ...values,
                     iban: values.iban?.trim() === "" ? null : values.iban
                 }
-                await axios.post(
-                    "http://localhost:8081/api/user/memberships",
+                await api.post(
+                    "/api/user/memberships",
                     payload,
                     {
                         headers: {
@@ -93,7 +90,7 @@ const MembershipCreate = () => {
     });
 
     return (
-        <div className="max-w-md mx-auto mt-10 p-6 bg-white rounded shadow">
+        <div className="max-w-md mx-auto mt-10 p-6 bg-gray-200 rounded shadow">
             <h2 className="text-2xl font-semibold text-center mb-6">Create Membership</h2>
 
             <form onSubmit={formik.handleSubmit} className="space-y-4">
@@ -235,14 +232,16 @@ const MembershipCreate = () => {
                     I have a discount
                 </label>
 
-                <Button
-                    name="Create Membership"
-                    type="submit"
-                    variant="primary"
-                    disabled={!formik.isValid}
-                    loading={loading}
+                <div className="flex justify-center">
+                    <Button
+                        name="Create Membership"
+                        type="submit"
+                        variant="primary"
+                        disabled={!formik.isValid}
+                        loading={loading}
 
-                />
+                    />
+                </div>
             </form>
 
 

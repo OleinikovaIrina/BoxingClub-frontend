@@ -8,7 +8,8 @@ import AdminMemberships from "./features/auth/pages/AdminMemberships";
 import PasswordReset from "./features/auth/pages/PasswordResetRequestPage";
 import ResetPasswordConfirm from "./features/auth/pages/PasswordResetConfirmPage";
 import { HomeContent } from "./features/auth/components/HomeContent";
-
+import AiCoachPanel from "./features/auth/components/AiCoachPanel";
+import DemoPage from "./features/auth/pages/DemoPage";
 
 function App() {
   return (
@@ -19,8 +20,14 @@ function App() {
         <Route
           path="/"
           element={
-            <div className="min-h-screen flex items-center justify-center bg-gray-100">
+            <div className="relative min-h-screen">
+
               <HomeContent />
+
+              <div className="absolute right-20 top-1/2 -translate-y-1/2">
+                <AiCoachPanel />
+              </div>
+
             </div>
           }
         />
@@ -45,6 +52,10 @@ function App() {
 
         <Route
           path="/reset-password" element={<ResetPasswordConfirm />}
+        />
+
+        {/* Demo*/}
+        <Route path="/demo" element={<DemoPage />}
         />
 
       </Routes>

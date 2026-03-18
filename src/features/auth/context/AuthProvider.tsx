@@ -33,6 +33,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
             value={{
                 isAuthenticated,
                 role,
+                setRole,
                 login,
                 logout,
             }}

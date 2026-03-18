@@ -1,9 +1,7 @@
 import { useFormik } from "formik";
 import * as Yup from "yup";
-//import { register } from "../authSlice";
-//import { useAppDispatch } from "../../../app/store";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import { api } from "../../../shared/api";
 import { useState } from "react";
 import Button from "../../../components/button";
 import { PasswordInput } from "../../../components/passwordInput/PasswordInput";
@@ -53,8 +51,8 @@ const Registration = () => {
             setLoading(true);
             try {
 
-                const response = await axios.post(
-                    "http://localhost:8081/api/auth/register",
+                const response = await api.post(
+                    "/api/auth/register",
                     values
                 );
                 console.log("Registered:", response.data.email);
@@ -67,19 +65,9 @@ const Registration = () => {
             }
         },
     });
-    //const cleanedValues = {
-    //  ...values,
-    // email: values.email.trim().toLowerCase(),
-    // };
-
-
-    //const dispatchResult = await dispatch(register(cleanedValues));
-    // if (register.fulfilled.match(dispatchResult)) {
-    // navigate("/login");
-    // }
 
     return (
-        <div className="max-w-md mx-auto mt-10 p-6 bg-white rounded shadow">
+        <div className="max-w-md mx-auto mt-10 p-6 bg-gray-200 rounded shadow">
             <h2 className="text-2xl font-semibold text-center mb-6">Create Account</h2>
 
             <form onSubmit={formik.handleSubmit} className="space-y-4">
@@ -149,13 +137,16 @@ const Registration = () => {
                             : undefined
                     }
                 />
-                <Button
-                    name="Register"
-                    type="submit"
-                    variant="primary"
-                    disabled={!formik.isValid}
-                    loading={loading}
-                />
+
+                <div className="flex justify-center">
+                    <Button
+                        name="Register"
+                        type="submit"
+                        variant="primary"
+                        disabled={!formik.isValid}
+                        loading={loading}
+                    />
+                </div>
 
             </form>
 

@@ -1,6 +1,6 @@
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import axios from "axios";
+import { api } from "../../../shared/api";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useState } from "react";
 import { useEffect } from "react";
@@ -27,8 +27,8 @@ const ResetPasswordConfirm = () => {
         }
         const validateToken = async () => {
             try {
-                await axios.get(
-                    "http://localhost:8081/api/password/validate",
+                await api.get(
+                    "/api/password/validate",
                     { params: { token } }
                 );
                 setTokenValid(true);
@@ -67,7 +67,7 @@ const ResetPasswordConfirm = () => {
 
             setLoading(true);
             try {
-                await axios.post("http://localhost:8081/api/password/reset", {
+                await api.post("/api/password/reset", {
                     passwordResetToken: token,
                     password: values.password,
                 });
@@ -133,13 +133,16 @@ const ResetPasswordConfirm = () => {
                                 : undefined
                         }
                     />
-                    <Button
-                        name="Set new password"
-                        type="submit"
-                        variant="primary"
-                        loading={loading}
-                        disabled={loading}
-                    />
+
+                    <div className="flex justify-center">
+                        <Button
+                            name="Set new password"
+                            type="submit"
+                            variant="primary"
+                            loading={loading}
+                            disabled={loading}
+                        />
+                    </div>
 
                 </form>
             )}

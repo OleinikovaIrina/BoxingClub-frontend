@@ -1,4 +1,4 @@
-import axios from "axios";
+import { api } from "../../../shared/api";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "../../../components/button";
@@ -32,8 +32,8 @@ const MyMemberships = () => {
 
         try {
             setError(null);
-            const response = await axios.get(
-                "http://localhost:8081/api/user/memberships",
+            const response = await api.get(
+                "/api/user/memberships",
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,
@@ -61,8 +61,8 @@ const MyMemberships = () => {
         try {
             setCancelLoadingId(membershipId);
 
-            await axios.post(
-                `http://localhost:8081/api/user/memberships/${membershipId}/cancel`,
+            await api.post(
+                `/api/user/memberships/${membershipId}/cancel`,
                 {},
                 {
                     headers: {
@@ -89,7 +89,7 @@ const MyMemberships = () => {
         );
     }
     return (
-        <div className="max-w-md mx-auto mt-10 p-6 bg-white rounded shadow">
+        <div className="max-w-md mx-auto mt-10 p-6 bg-gray-200 rounded shadow">
             <h2 className="text-2xl font-semibold text-center mb-6">
                 My Memberships
             </h2>
@@ -123,12 +123,12 @@ const MyMemberships = () => {
                             <span
                                 className={
                                     m.status === "PENDING"
-                                        ? "text-yellow-600"
+                                        ? "text-yellow-600 font-bold"
                                         : m.status === "APPROVED"
-                                            ? "text-green-600"
+                                            ? "text-green-600 font-bold"
                                             : m.status === "REJECTED"
-                                                ? "text-red-600"
-                                                : "text-gray-500"
+                                                ? "text-red-600 font-bold"
+                                                : "text-gray-500 font-bold"
                                 }
                             >
                                 {m.status}
@@ -136,21 +136,23 @@ const MyMemberships = () => {
                         </p>
 
                         <p>
-                            <b>Period:</b> {m.startDate} – {m.endDate}
+                            <b>Period:</b> {m.startDate} to {m.endDate}
                         </p>
 
                         <p>
                             <b>Active:</b> {m.active ? "Yes" : "No"}
                         </p>
 
-                        {m.status == "APPROVED" && (
-                            <Button
-                                name="Cancel"
-                                type="button"
-                                danger
-                                loading={cancelLoadingId === m.membershipId}
-                                onClick={() => cancelMembership(m.membershipId)}
-                            />
+                        {m.status === "APPROVED" && (
+                            <div className="flex justify-center">
+                                <Button
+                                    name="Cancel"
+                                    type="button"
+                                    danger
+                                    loading={cancelLoadingId === m.membershipId}
+                                    onClick={() => cancelMembership(m.membershipId)}
+                                />
+                            </div>
                         )}
                     </div>
                 </div>
