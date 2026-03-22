@@ -2,34 +2,49 @@ import { useNavigate } from "react-router-dom";
 import { api } from "../../../shared/api";
 import { useAuth } from "../context/UseAuth";
 import boxing from "../../../assets/boxing.jpg";
+import { useState } from "react";
 
 const DemoPage = () => {
 
     const navigate = useNavigate();
     const { login } = useAuth();
+    const [loadingUser, setLoadingUser] = useState(false);
+    const [loadingAdmin, setLoadingAdmin] = useState(false);
 
     const loginAsUser = async () => {
-        const res = await api.post(
-            "/api/auth/login",
-            {
-                email: "user@test.com",
-                password: "Password@1",
-            }
-        );
-        login(res.data.accessToken, res.data.role);
-        navigate("/membership");
+        setLoadingUser(true);
+        try {
+            const res = await api.post(
+                "/api/auth/login",
+                {
+                    email: "user@test.com",
+                    password: "Password@1",
+                });
+
+            login(res.data.accessToken, res.data.role);
+            navigate("/membership");
+        } finally {
+            setLoadingUser(false);
+        }
+
     };
 
     const loginAsAdmin = async () => {
-        const res = await api.post(
-            "/api/auth/login",
-            {
-                email: "admin@test.com",
-                password: "Password@2",
-            }
-        );
-        login(res.data.accessToken, res.data.role);
-        navigate("/admin");
+        setLoadingAdmin(true);
+        try {
+            const res = await api.post(
+                "/api/auth/login",
+                {
+                    email: "admin@test.com",
+                    password: "Password@2",
+                }
+            );
+            login(res.data.accessToken, res.data.role);
+            navigate("/admin");
+        } finally {
+            setLoadingAdmin(false);
+        }
+
     };
     return (
         <div className="min-h-screen bg-[url('/boxing.jpg')] bg-cover bg-center"
@@ -55,16 +70,18 @@ const DemoPage = () => {
 
                         <button
                             onClick={loginAsUser}
-                            className="bg-blue-600 text-white py-3 rounded-lg text-lg hover:bg-blue-700 transition"
+                            disabled={loadingUser}
+                            className="bg-blue-600 text-white py-3 rounded-lg text-lg hover:bg-blue-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
                         >
-                            Login as User
+                            {loadingUser ? "Waking server..." : "Login as User"}
                         </button>
 
                         <button
                             onClick={loginAsAdmin}
-                            className="bg-purple-700 text-white py-3 rounded-lg text-lg hover:bg-purple-800 transition"
+                            disabled={loadingAdmin}
+                            className="bg-purple-700 text-white py-3 rounded-lg text-lg hover:bg-purple-800 transition disabled:opacity-50 disabled:cursor-not-allowed"
                         >
-                            Login as Admin
+                            {loadingAdmin ? "Waking server..." : "Login as Admin"}
                         </button>
 
                     </div>

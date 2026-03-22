@@ -89,7 +89,7 @@ const MyMemberships = () => {
         );
     }
     return (
-        <div className="max-w-md mx-auto mt-10 p-6 bg-gray-200 rounded shadow">
+        <div className="max-w-sm mx-auto mt-8 p-4 bg-gray-200 rounded shadow">
             <h2 className="text-2xl font-semibold text-center mb-6">
                 My Memberships
             </h2>
@@ -103,9 +103,9 @@ const MyMemberships = () => {
             {memberships.map((m) => (
                 <div
                     key={m.membershipId}
-                    className="border rounded p-4 flex justify-between items-start mb-4"
+                    className="border rounded p-3 mb-3  bg-white"
                 >
-                    <div className="space-y-1">
+                    <div className="space-y-0.5">
                         <p>
                             <b>User:</b> {m.firstName} {m.lastName}
                         </p>
@@ -144,7 +144,7 @@ const MyMemberships = () => {
                         </p>
 
                         {m.status === "APPROVED" && (
-                            <div className="flex justify-center">
+                            <div className="mt-2">
                                 <Button
                                     name="Cancel"
                                     type="button"

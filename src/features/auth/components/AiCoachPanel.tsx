@@ -25,7 +25,7 @@ export default function AiCoachPanel() {
 
         } catch (error) {
             console.error(error);
-            setAnswer("AI service error.");
+            setAnswer("Server is waking up... please try again.");
 
         } finally {
             setLoading(false);
@@ -49,7 +49,10 @@ export default function AiCoachPanel() {
                 rows={3}
                 placeholder="How can I improve punching speed?"
                 value={question}
-                onChange={(e) => setQuestion(e.target.value)}
+                onChange={(e) => {
+                    setQuestion(e.target.value);
+                    setAnswer("");
+                }}
             />
 
             <div className="flex justify-center">
@@ -62,13 +65,26 @@ export default function AiCoachPanel() {
                     onClick={askAI}
                 />
             </div>
+            <div className="mt-4 min-h-[120px]">
 
-            {answer && (
-                < div className="mt-4 p-4 bg-gray-100 rounded text-base leading-relaxed whitespace-pre-wrap max-h-64 overflow-y-auto">
-                    {answer}
-                </div>
-            )}
+                {loading && (
+                    <div className="p-4 bg-gray-100 rounded text-center text-gray-500">
+                        🤖 Thinking...
+                    </div>
+                )}
+
+                {!loading && answer && (
+                    <div className="p-4 bg-gray-100 rounded text-base leading-relaxed whitespace-pre-wrap max-h-64 overflow-y-auto">                        {answer}
+                    </div>
+                )}
+
+                {!loading && !answer && (
+                    <div className="p-4 text-center text-gray-400">
+                        Ask a question to get advice
+                    </div>
+                )}
+            </div>
+
         </div>
-
     );
 }
