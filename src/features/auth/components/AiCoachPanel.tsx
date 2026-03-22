@@ -20,7 +20,7 @@ export default function AiCoachPanel() {
                 { question }
             );
 
-            setAnswer(response.data.answer);
+            setAnswer(response.data.answer.trimStart());
             setQuestion("");
 
         } catch (error) {
@@ -74,7 +74,8 @@ export default function AiCoachPanel() {
                 )}
 
                 {!loading && answer && (
-                    <div className="p-4 bg-gray-100 rounded text-base leading-relaxed whitespace-pre-wrap max-h-64 overflow-y-auto">                        {answer}
+                    <div className="p-4 bg-gray-100 rounded text-base leading-relaxed max-h-64 overflow-y-auto text-left">
+                        {answer}
                     </div>
                 )}
 
